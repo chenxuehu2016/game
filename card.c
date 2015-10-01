@@ -878,6 +878,7 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 		
 		current_game_state[group] = RUN_STATE;
 		current_card_type[group] = check_type(card, length);
+		current_big[group] = get_big_data(card, length, current_card_type[group]);
 		
 		return;
 	}
@@ -888,6 +889,7 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 		
 		current_card_num[group] = length;
 		current_card_type[group] = check_type(card, length);
+		current_big[group] = get_big_data(card, length, current_card_type[group]);
 		
 		return;
 	}
