@@ -95,6 +95,10 @@ static int current_user[MAX_GROUP][3];
 
 static int current_seed[MAX_GROUP];
 
+// current card info
+
+static int current_card_info[MAX_GROUP][54];
+
 // define game state
 
 #define INIT_STATE   0x0
@@ -202,9 +206,19 @@ void deal_card(char card[], int length, int group) {
 
 // check cheat function
 
-static STATUS check_cheat(char card[], int length) {
+static STATUS check_cheat(char card[], int length, int group) {
 
-	return FALSE;
+	int i;
+
+	for(i = 0; i < length; i ++) {
+
+		if(current_card_info[group][card[i]] == 0)
+			return FALSE;
+
+		current_card-Info[group][card[i]] = 0;
+	}
+
+	return TRUE;
 }
 
 // shuffle cards by real value
