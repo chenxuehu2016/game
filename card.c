@@ -58,6 +58,26 @@ typedef struct _CARD{
 static STATUS is_three_cards(char card[], int length);
 static STATUS is_bomb(char card[], int length);
 
+// game struct
+
+typedef struct _Game{
+
+	int current_card_num;
+	int current_game_state;
+	int current_owner;
+	int current_card_type;
+	int current_boss;
+	int current_cnt;
+	int current_bet;
+	int current_big;
+	int current_user[3];
+	int current_seed;
+	int current_card_info;
+
+}Game;
+
+static Game game[MAX_GROUP];
+
 // current holding card num
 
 static int current_card_num[MAX_GROUP];
@@ -218,7 +238,7 @@ static STATUS check_cheat(char card[], int length, int group) {
 		if(current_card_info[group][card[i]] == 0)
 			return FALSE;
 
-		current_card-Info[group][card[i]] = 0;
+		current_card_info[group][card[i]] = 0;
 	}
 
 	return TRUE;
