@@ -812,7 +812,6 @@ static _process_card(char* card, int length, int group)
 			big = get_big_data(card, length, BOMB);
 			assert(big > current_big[group]);
 			
-			current_card_type[group] = BOMB;
 			current_big[group] = big;
 
 		} else {
