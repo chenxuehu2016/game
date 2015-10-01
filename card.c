@@ -90,6 +90,10 @@ static int current_big[MAX_GROUP];
 
 static int current_user[MAX_GROUP][3];
 
+// current seed
+
+static int current_seed[MAX_GROUP];
+
 // define game state
 
 #define INIT_STATE   0x0
@@ -106,7 +110,29 @@ void select_boss() {
 
 // deal card first
 
-void deal_card() {
+void deal_card(char card[], int length, int group) {
+
+	int i;
+	int j;
+	int tmp;
+
+	assert(card);
+	assert(54 == length);
+
+	srand(current_seed[group]);
+
+	for(i = 0; i < length; i ++) {
+
+		j = rand() % 54;
+		if(i != j) {
+
+			tmp = card[i];
+			card[i] = card[j];
+			card[j] = tmp;
+		}
+	}
+
+	current_seed[group] = rand();
 	
 }
 
