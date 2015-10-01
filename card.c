@@ -797,22 +797,22 @@ static _process_card(char* card, int length, int group)
 	int type;
 	int big;
 	
-	if(current_type[group] == DOUBLE_QUEENS) {
+	if(current_card_type[group] == DOUBLE_QUEENS) {
 
 			assert(0);
-	} else if(current_type[group] == BOMB) {
+	} else if(current_card_type[group] == BOMB) {
 		
 		type = check_type(card, length);
 		if(type == DOUBLE_QUEENS) {
 
-			current_type[group] = DOUBLE_QUEENS;
+			current_card_type[group] = DOUBLE_QUEENS;
 
 		} else if(type == BOMB) {
 
 			big = get_big_data(card, length, BOMB);
-			assert(big > current[group].big);
+			assert(big > current_big[group]);
 			
-			current_type[group] = BOMB;
+			current_card_type[group] = BOMB;
 			current_big[group] = big;
 
 		} else {
@@ -823,15 +823,15 @@ static _process_card(char* card, int length, int group)
 		type = check_type(card, length);
 		if(type == DOUBLE_QUEENS) {
 
-			current_type[group] = DOUBLE_QUEENS;
+			current_card_type[group] = DOUBLE_QUEENS;
 
 		}else if(type == BOMB) {
 
-			current_type[group] = BOMB;
+			current_card_type[group] = BOMB;
 			current_big[group] = get_big_data(card, length, BOMB);
 		}else {
 
-			assert(current_type[group] == type);
+			assert(current_card_type[group] == type);
 			assert(current_card_num[group] == length);
 
 			big = get_big_data(card, length, type);
