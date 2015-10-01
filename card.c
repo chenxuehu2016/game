@@ -77,6 +77,9 @@ static int current_card_type[MAX_GROUP];
 // current boss
 
 static int current_boss[MAX_GROUP];
+
+// check whether all users have set bet
+
 static int current_cnt[MAX_GROUP];
 
 // current bet
