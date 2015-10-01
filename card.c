@@ -195,6 +195,13 @@ int get_big_data(char card[], int length, int type) {
 	switch(type) {
 
 		case SINGLE_CARD:
+		{
+			if(card[0] == SMALL_QUEEN || card[0] == BIG_QUEEN)
+				return card[0];
+			else
+				return card[0] % SINGLE_CARD_NUM;
+		}
+
 		case DOUBLE_CARD:
 		case THREE_CARD:
 		case BOMB:
