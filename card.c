@@ -799,174 +799,50 @@ static int  check_type(char* card, int length) {
 static _process_card(char* card, int length, int group)
 {
 	int type;
+	int big;
 	
-	type = check_type(card, length);
-	
-	switch(current_card_type[group]) {
-		
-		case SINGLE_CARD:
-		
-			if(type == SINGLE_CARD) {
-				/*  */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/*  */
-			}else {
-				assert(0);
-			}
-
-			break;
-			
-		case DOUBLE_CARD:
-		
-			if(type == DOUBLE_CARD) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case THREE_CARD:
-
-			if(type == THREE_CARD) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-			
-		case THREE_ONE:
-		
-			if(type == THREE_ONE) {
-				/* .... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case THREE_TWO:
-
-			if(type == THREE_TWO) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case FOUR_TWO_DIFF:
-
-			if(type == FOUR_TWO_DIFF) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case FOUR_TWO_SAME:
-
-			if(type == FOUR_TWO_SAME) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-
-		case SEQUENCE:
-		
-			if(type == SEQUENCE) {
-				/* ...*/
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-			
-			break;
-			
-		case BOMB:
-		
-			if(type == BOMB) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-			
-			break;
-			
-		case MORE_DOUBLE:
-		
-			if(type == MORE_DOUBLE){
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-			
-			break;
-
-		case MORE_THREE:
-
-			if(type == MORE_THREE){
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case MORE_THREE_ONE:
-		
-			if(type == MORE_THREE_ONE) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case MORE_THREE_TWO:
-
-			if(type == MORE_THREE_TWO) {
-				/* ... */
-			}else if(type == DOUBLE_QUEENS || type == BOMB) {
-				/* ... */
-			}else {
-				assert(0);
-			}
-
-			break;
-
-		case DOUBLE_QUEENS:
+	if(current_type[group] == DOUBLE_QUEENS) {
 
 			assert(0);
+	} else if(current_type[group] == BOMB) {
+		
+		type = check_type(card, length);
+		if(type == DOUBLE_QUEENS) {
 
-		default:
+			current_type[group] = DOUBLE_QUEENS;
+
+		} else if(type == BOMB) {
+
+			big = get_big_data(card, length, BOMB);
+			assert(big > current[group].big);
+			
+			current_type[group] = BOMB;
+			current_big[group] = big;
+
+		} else {
 			assert(0);
+		}
+	}else {
+		
+		type = check_type(card, length);
+		if(type == DOUBLE_QUEENS) {
+
+			current_type[group] = DOUBLE_QUEENS;
+
+		}else if(type == BOMB) {
+
+			current_type[group] = BOMB;
+			current_big[group] = get_big_data(card, length, BOMB);
+		}else {
+
+			assert(current_type[group] == type);
+			assert(current_card_num[group] == length);
+
+			big = get_big_data(card, length, type);
+			assert(big > current_big[group]);
+
+			current_big[group] = big;
+		}
 	}
 }
 
@@ -1023,7 +899,6 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	memmove(local_card[group], card, length);
 	current_card_num[group] = length;
 	current_owner[group] = sender;
-	current_card_type[group] = check_type(card, length);
 	
 	return;
 }
