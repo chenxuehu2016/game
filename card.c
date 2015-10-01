@@ -72,55 +72,11 @@ typedef struct _Game{
 	int current_big;
 	int current_user[3];
 	int current_seed;
-	int current_card_info;
+	int current_card_info[54];
 
 }Game;
 
 static Game game[MAX_GROUP];
-
-// current holding card num
-
-static int current_card_num[MAX_GROUP];
-
-// current game state
-
-static int current_game_state[MAX_GROUP];
-
-// current card owner
-
-static int current_owner[MAX_GROUP];
-
-// current card type
-
-static int current_card_type[MAX_GROUP];
-
-// current boss
-
-static int current_boss[MAX_GROUP];
-
-// check whether all users have set bet
-
-static int current_cnt[MAX_GROUP];
-
-// current bet
-
-static int current_bet[MAX_GROUP];
-
-// current big
-
-static int current_big[MAX_GROUP];
-
-// current gamer
-
-static int current_user[MAX_GROUP][3];
-
-// current seed
-
-static int current_seed[MAX_GROUP];
-
-// current card info
-
-static int current_card_info[MAX_GROUP][54];
 
 // define game state
 
@@ -142,16 +98,16 @@ STATUS select_boss(int bet, int sender, int group) {
 
 		case 1:
 		case 2:
-			if(bet > current_boss[group]) {
+			if(bet > game[group].current_boss) {
 
-				current_boss[group] = sender;
-				current_bet[group] = bet;
+				game[group].current_boss = sender;
+				game[group].current_bet = bet;
 			}
 			break;
 
 		case 3:
-			current_boss[group] = sender;
-			current_bet[group] = 3;
+			game[group].current_boss = sender;
+			game[group].current_bet = 3;
 			ret = TRUE;
 			break;
 
@@ -160,7 +116,7 @@ STATUS select_boss(int bet, int sender, int group) {
 
 	}
 
-	current_cnt[group] ++;
+	game[group].current_cnt ++;
 
 	return ret;
 }
@@ -176,7 +132,7 @@ void deal_card(char card[], int length, int group) {
 	assert(card);
 	assert(54 == length);
 
-	srand(current_seed[group]);
+	srand(game[group].current_seed);
 
 	for(i = 0; i < length; i ++) {
 
@@ -189,7 +145,7 @@ void deal_card(char card[], int length, int group) {
 		}
 	}
 
-	current_seed[group] = rand();
+	game[group].current_seed = rand();
 	
 }
 
@@ -235,10 +191,10 @@ static STATUS check_cheat(char card[], int length, int group) {
 
 	for(i = 0; i < length; i ++) {
 
-		if(current_card_info[group][card[i]] == 0)
+		if(game[group].current_card_info[card[i]] == 0)
 			return FALSE;
 
-		current_card_info[group][card[i]] = 0;
+		game[group].current_card_info[card[i]] = 0;
 	}
 
 	return TRUE;
@@ -897,22 +853,22 @@ static _process_card(char* card, int length, int group)
 	int type;
 	int big;
 	
-	if(current_card_type[group] == DOUBLE_QUEENS) {
+	if(game[group].current_card_type == DOUBLE_QUEENS) {
 
 			assert(0);
-	} else if(current_card_type[group] == BOMB) {
+	} else if(game[group].current_card_type == BOMB) {
 		
 		type = check_type(card, length);
 		if(type == DOUBLE_QUEENS) {
 
-			current_card_type[group] = DOUBLE_QUEENS;
+			game[group].current_card_type = DOUBLE_QUEENS;
 
 		} else if(type == BOMB) {
 
 			big = get_big_data(card, length, BOMB);
-			assert(big > current_big[group]);
+			assert(big > game[group].current_big);
 			
-			current_big[group] = big;
+			game[group].current_big = big;
 
 		} else {
 			assert(0);
@@ -922,21 +878,21 @@ static _process_card(char* card, int length, int group)
 		type = check_type(card, length);
 		if(type == DOUBLE_QUEENS) {
 
-			current_card_type[group] = DOUBLE_QUEENS;
+			game[group].current_card_type = DOUBLE_QUEENS;
 
 		}else if(type == BOMB) {
 
-			current_card_type[group] = BOMB;
-			current_big[group] = get_big_data(card, length, BOMB);
+			game[group].current_card_type = BOMB;
+			game[group].current_big = get_big_data(card, length, BOMB);
 		}else {
 
-			assert(current_card_type[group] == type);
-			assert(current_card_num[group] == length);
+			assert(game[group].current_card_type == type);
+			assert(game[group].current_card_num == length);
 
 			big = get_big_data(card, length, type);
-			assert(big > current_big[group]);
+			assert(big > game[group].current_big);
 
-			current_big[group] = big;
+			game[group].current_big = big;
 		}
 	}
 }
@@ -955,7 +911,7 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	// someone try to give up this opportunity
 	
 	if(0 == length) {
-		if(GAME_STATE == current_game_state[group]) {
+		if(GAME_STATE ==game[group].current_game_state) {
 			assert(0);
 		}
 		
@@ -964,25 +920,25 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	
 	// first get card from user
 	
-	if(0 == current_owner[group]) {
+	if(0 == game[group].current_owner) {
 		
-		current_card_num[group] = length;
-		current_owner[group] = sender;
+		game[group].current_card_num = length;
+		game[group].current_owner = sender;
 		
-		current_game_state[group] = RUN_STATE;
-		current_card_type[group] = check_type(card, length);
-		current_big[group] = get_big_data(card, length, current_card_type[group]);
+		game[group].current_game_state = RUN_STATE;
+		game[group].current_card_type = check_type(card, length);
+		game[group].current_big = get_big_data(card, length, game[group].current_card_type);
 		
 		return;
 	}
 	
 	// sender equals to owner
 	
-	if(sender == current_owner[group]) {
+	if(sender == game[group].current_owner) {
 		
-		current_card_num[group] = length;
-		current_card_type[group] = check_type(card, length);
-		current_big[group] = get_big_data(card, length, current_card_type[group]);
+		game[group].current_card_num = length;
+		game[group].current_card_type = check_type(card, length);
+		game[group].current_big = get_big_data(card, length, game[group].current_card_type);
 		
 		return;
 	}
@@ -991,8 +947,8 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	
 	_process_card(card, length, group);
 	
-	current_card_num[group] = length;
-	current_owner[group] = sender;
+	game[group].current_card_num = length;
+	game[group].current_owner = sender;
 	
 	return;
 }
