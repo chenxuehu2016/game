@@ -77,6 +77,7 @@ static int current_card_type[MAX_GROUP];
 // current boss
 
 static int current_boss[MAX_GROUP];
+static int current_cnt[MAX_GROUP];
 
 // current bet
 
@@ -131,6 +132,8 @@ STATUS select_boss(int bet, int sender, int group) {
 			assert(0);
 
 	}
+
+	current_cnt[group] ++;
 
 	return ret;
 }
