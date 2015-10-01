@@ -62,16 +62,37 @@ static STATUS is_bomb(char card[], int length);
 
 typedef struct _Game{
 
+	// current holding card number
 	int current_card_num;
+
+	// current game state
 	int current_game_state;
+
+	// current card owner
 	int current_owner;
+
+	// current card type
 	int current_card_type;
+
+	// current landlord
 	int current_boss;
+
+	// record how many people have set bet
 	int current_cnt;
+
+	// current bet value
 	int current_bet;
+
+	// currnet big data for specified type
 	int current_big;
+
+	// current user id
 	int current_user[3];
+
+	// current seed for group
 	int current_seed;
+
+	// current round card information
 	int current_card_info[54];
 
 }Game;
