@@ -103,9 +103,36 @@ static int current_seed[MAX_GROUP];
 
 // select boss
 
-void select_boss() {
+STATUS select_boss(int bet, int sender, int group) {
 
+	STATUS ret = FALSE;
 
+	switch(bet) {
+
+		case 0:
+			break;
+
+		case 1:
+		case 2:
+			if(bet > current_boss[group]) {
+
+				current_boss[group] = sender;
+				current_bet[group] = bet;
+			}
+			break;
+
+		case 3:
+			current_boss[group] = sender;
+			current_bet[group] = 3;
+			ret = TRUE;
+			break;
+
+		default:
+			assert(0);
+
+	}
+
+	return ret;
 }
 
 // deal card first
