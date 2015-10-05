@@ -738,7 +738,7 @@ static int  check_type(char* card, int length) {
 	ASSERT(card);
 	ASSERT(length);
 
-	if(lenght >= 3) {
+	if(length >= 3) {
 		for(i = 0; i < length; i ++){
 			if(card[i] == SMALL_QUEEN || card[i] == BIG_QUEEN)
 				return TYPE_ERR;
