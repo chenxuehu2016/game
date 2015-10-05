@@ -582,6 +582,8 @@ static STATUS is_more_double(char card[], int length) {
 		}
 	}
 
+	// 12 refers to 2, the biggest data
+
 	ASSERT(12 != card[length -1] % SINGLE_CARD_NUM);
 
 	return TRUE;
@@ -609,6 +611,8 @@ static STATUS is_more_three(char card[], int length) {
 		if(FALSE == is_same_card(card[3 *i] + 1, card[3*(i+1)]))
 			return FALSE;
 	}
+
+	// 12 refers to 2, the biggest data
 
 	ASSERT(12 != card[length -1] % SINGLE_CARD_NUM);
 
@@ -641,6 +645,8 @@ static STATUS is_more_three_one(char card[], int length) {
 
 	if(i == (length - 2))
 		return FALSE;
+
+	// 12 refers to 2, the biggest data
 
 	ASSERT(12 != card[i + (length /4 -1) * 3] % SINGLE_CARD_NUM);
 
@@ -689,6 +695,8 @@ static STATUS is_more_three_two(char card[], int length) {
 	if(i == (length - 2))
 		return FALSE;
 
+	// 12 refers to 2, the biggest data
+
 	ASSERT(12 != card[i + (length /5 -1) * 3] % SINGLE_CARD_NUM);
 
 	// check single card
@@ -725,8 +733,17 @@ static STATUS is_more_three_two(char card[], int length) {
 
 static int  check_type(char* card, int length) {
 
+	int i;
+
 	ASSERT(card);
 	ASSERT(length);
+
+	if(lenght >= 3) {
+		for(i = 0; i < length; i ++){
+			if(card[i] == SMALL_QUEEN || card[i] == BIG_QUEEN)
+				return TYPE_ERR;
+		}
+	}
 	
 	switch(length) {
 		
@@ -868,6 +885,8 @@ static int  check_type(char* card, int length) {
 				ASSERT(0);
 			}
 	}
+
+	return TYPE_ERR;
 }
 
 static _process_card(char* card, int length, int group)
