@@ -205,28 +205,6 @@ void deal_card(char card[], int length, int group) {
 // 0 - 3, 1 - 4, 2 - 5, 3 - 6, 4 - 7, 5 - 8
 // 6 - 9, 7 - 10, 8 - j, 9 - p, 10 - k, 11 - A, 12 - 2
 
-
-// find queue card or 2 card
-
-STATUS static find_queue_or_2_card(char card[], int length) {
-
-		int i;
-		char val;
-
-		ASSERT(card);
-		ASSERT(length);
-
-		for(i = 0; i < length; i ++) {
-
-			var = card[i];
-
-			if(var == SMALL_QUEEN || var == BIG_QUEEN || 12 == (var % SINGLE_CARD_NUM))
-				return FALSE;
-		}
-
-		return TRUE;
-}
-
 // check cheat function
 
 static STATUS check_cheat(char card[], int length, int group) {
@@ -762,13 +740,13 @@ static int  check_type(char* card, int length) {
 			
 		case 2:
 
-			if(TRUE == is_double_cards(card, length)) {
-
-				return DOUBLE_CARD;
-
-			}else if(TRUE == is_double_queens(card, length)) {
+			if(TRUE == is_double_queens(card, length)) {
 
 				return DOUBLE_QUEENS;
+
+			}else if(TRUE == is_double_cards(card, length)) {
+
+				return DOUBLE_CARD;
 			}else {
 
 				ASSERT(0);
