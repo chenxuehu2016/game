@@ -1000,7 +1000,17 @@ static _process_card(char* card, int length, int group)
 // process card
 
 void process_card(char card[], int length, int sender, int finish, int group) {
+
+	int i;
+
+	// make sure all cards are smaller than 54
 	
+	if(length) {
+
+		for(i = 0; i < length; i ++)
+			ASSERT(card[i] < 54);
+	}
+
 	// check if finish already
 	
 	if(finish) {
