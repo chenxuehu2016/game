@@ -211,6 +211,14 @@ void deal_card(char card[], int length, int group) {
 	ASSERT(card);
 	ASSERT(54 == length);
 
+	// init card
+
+	for(i =0 ; i < length; i ++) {
+		card[i] = i;
+	}
+
+	// resort card
+
 	srand(game[group].current_seed);
 
 	for(i = 0; i < length; i ++) {
