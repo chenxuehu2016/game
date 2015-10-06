@@ -107,6 +107,40 @@ static Game game[MAX_GROUP];
 #define GAME_STATE   0x2
 #define RUN_STATE    0x3
 
+// has 2 card
+
+static STATUS is_there_2_card(char card[], int length){
+
+	int i;
+
+	ASSERT(card);
+	ASSERT(length);
+
+	for(i = 0; i < length; i ++) {
+		if(12 == (card[i] % SINGLE_CARD_NUM))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+// has queen card
+
+static STATUS is_there_queen_card(char card[], int length) {
+
+	int i;
+
+	ASSERT(card);
+	ASSERT(length);
+
+	for(i = 0; i < length; i ++) {
+		if(SMALL_QUEEN == card[i] || BIG_QUEEN == card[i])
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 // select boss
 
 STATUS select_boss(int bet, int sender, int group) {
@@ -737,13 +771,6 @@ static int  check_type(char* card, int length) {
 
 	ASSERT(card);
 	ASSERT(length);
-
-	if(length >= 3) {
-		for(i = 0; i < length; i ++){
-			if(card[i] == SMALL_QUEEN || card[i] == BIG_QUEEN)
-				return TYPE_ERR;
-		}
-	}
 	
 	switch(length) {
 		
