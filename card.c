@@ -693,13 +693,6 @@ static STATUS is_more_three_one(char card[], int length) {
 	ASSERT(card);
 	ASSERT((length >= 8) && (0 == length %4));
 
-	// check if has 2 card
-
-	if(TRUE == is_there_2_card(card, length)){
-
-		return FALSE;
-	}
-
 	// check if there is bomb
 
 	for(i = 0; i < (length - 3); i ++) {
@@ -745,13 +738,6 @@ static STATUS is_more_three_two(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT((length >= 10) && (0 == length %5));
-
-	// check if has 2 card
-
-	if(TRUE == is_there_2_card(card, length)){
-
-		return FALSE;
-	}
 
 	// check if there is bomb
 
