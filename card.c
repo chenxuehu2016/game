@@ -45,6 +45,29 @@ typedef struct _CARD{
 	int num;
 }CARD;
 
+// check card type
+
+#define SINGLE_CARD    0x1
+#define DOUBLE_CARD    0x2
+#define BOMB           0x3
+#define SEQUENCE       0x4
+#define DOUBLE_QUEENS  0x5
+#define THREE_CARD     0x6
+#define THREE_ONE      0x7
+#define THREE_TWO      0x8
+#define FOUR_TWO_DIFF  0x9
+#define FOUR_TWO_SAME  0xa
+#define MORE_DOUBLE    0xb
+#define MORE_THREE     0xc
+#define MORE_THREE_ONE 0xd
+#define MORE_THREE_TWO 0xe
+#define TYPE_ERR       0xffffffff
+
+#define SMALL_QUEEN     52
+#define BIG_QUEEN       53
+#define SINGLE_CARD_NUM 13
+
+
 // data type definition
 
 #define ASSERT(a)
@@ -205,27 +228,6 @@ void deal_card(char card[], int length, int group) {
 	
 }
 
-// check card type
-
-#define SINGLE_CARD    0x1
-#define DOUBLE_CARD    0x2
-#define BOMB           0x3
-#define SEQUENCE       0x4
-#define DOUBLE_QUEENS  0x5
-#define THREE_CARD     0x6
-#define THREE_ONE      0x7
-#define THREE_TWO      0x8
-#define FOUR_TWO_DIFF  0x9
-#define FOUR_TWO_SAME  0xa
-#define MORE_DOUBLE    0xb
-#define MORE_THREE     0xc
-#define MORE_THREE_ONE 0xd
-#define MORE_THREE_TWO 0xe
-#define TYPE_ERR       0xffffffff
-
-#define SMALL_QUEEN     52
-#define BIG_QUEEN       53
-#define SINGLE_CARD_NUM 13
 
 // mapping method
 
@@ -790,8 +792,6 @@ static STATUS is_more_three_two(char card[], int length) {
 // check card type
 
 static int  check_type(char* card, int length) {
-
-	int i;
 
 	ASSERT(card);
 	ASSERT(length);
