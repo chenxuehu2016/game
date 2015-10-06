@@ -447,15 +447,27 @@ static STATUS is_sequence(char card[], int length) {
 	ASSERT(card);
 	ASSERT(length >= 5);
 
+	// check if has queen card
+
+	if(TRUE == is_there_queen_card(card, length)) {
+
+		return FALSE;
+	}
+
+	// check if has 2 card
+
+	if(TRUE == is_there_2_card(card, length)){
+
+		return FALSE;
+	}
+
+	// check sequence
+
 	for(i = 0; i < (length - 1); i ++) {
 
 		if(TRUE != is_same_card(card[i] + 1, card[i+1]))
 			return FALSE;
 	}
-
-	// 12 refers to 2, the biggest data
-
-	ASSERT(12 != card[length -1] % SINGLE_CARD_NUM);
 
 	return TRUE;
 }
@@ -598,6 +610,20 @@ static STATUS is_more_double(char card[], int length) {
 	ASSERT(card);
 	ASSERT((length >= 6) && (0 == (length % 2)));
 
+	// check if has queen card
+
+	if(TRUE == is_there_queen_card(card, length)) {
+
+		return FALSE;
+	}
+
+	// check if has 2 card
+
+	if(TRUE == is_there_2_card(card, length)){
+
+		return FALSE;
+	}
+
 	// check same cards
 
 	for(i = 0; i < (length >> 1); i ++) {
@@ -616,10 +642,6 @@ static STATUS is_more_double(char card[], int length) {
 		}
 	}
 
-	// 12 refers to 2, the biggest data
-
-	ASSERT(12 != card[length -1] % SINGLE_CARD_NUM);
-
 	return TRUE;
 }
 
@@ -629,6 +651,20 @@ static STATUS is_more_three(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT((length >= 6) && (0 == (length % 3)));
+
+	// check if has queen card
+
+	if(TRUE == is_there_queen_card(card, length)) {
+
+		return FALSE;
+	}
+
+	// check if has 2 card
+
+	if(TRUE == is_there_2_card(card, length)){
+
+		return FALSE;
+	}
 
 	// check three cards
 
@@ -646,10 +682,6 @@ static STATUS is_more_three(char card[], int length) {
 			return FALSE;
 	}
 
-	// 12 refers to 2, the biggest data
-
-	ASSERT(12 != card[length -1] % SINGLE_CARD_NUM);
-
 	return TRUE;
 }
 
@@ -660,6 +692,13 @@ static STATUS is_more_three_one(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT((length >= 8) && (0 == length %4));
+
+	// check if has 2 card
+
+	if(TRUE == is_there_2_card(card, length)){
+
+		return FALSE;
+	}
 
 	// check if there is bomb
 
@@ -679,10 +718,6 @@ static STATUS is_more_three_one(char card[], int length) {
 
 	if(i == (length - 2))
 		return FALSE;
-
-	// 12 refers to 2, the biggest data
-
-	ASSERT(12 != card[i + (length /4 -1) * 3] % SINGLE_CARD_NUM);
 
 	// check single card
 
@@ -711,6 +746,13 @@ static STATUS is_more_three_two(char card[], int length) {
 	ASSERT(card);
 	ASSERT((length >= 10) && (0 == length %5));
 
+	// check if has 2 card
+
+	if(TRUE == is_there_2_card(card, length)){
+
+		return FALSE;
+	}
+
 	// check if there is bomb
 
 	for(i = 0; i < (length - 3); i ++) {
@@ -728,10 +770,6 @@ static STATUS is_more_three_two(char card[], int length) {
 
 	if(i == (length - 2))
 		return FALSE;
-
-	// 12 refers to 2, the biggest data
-
-	ASSERT(12 != card[i + (length /5 -1) * 3] % SINGLE_CARD_NUM);
 
 	// check single card
 
