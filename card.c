@@ -1046,7 +1046,7 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 }
 
 
-
+#ifndef UNIT_TEST
 // entry of all function
 
 int main(int argc, char* argv[]) {
@@ -1069,4 +1069,4 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
-
+#endif
