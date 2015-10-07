@@ -1033,7 +1033,11 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 		
 		return;
 	}
-	
+
+	// resort card
+
+	resort_cards(card, length);
+
 	// first get card from user
 	
 	if(0 == game[group].current_owner) {
