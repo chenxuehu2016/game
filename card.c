@@ -195,7 +195,13 @@ STATUS select_boss(int bet, int sender, int group) {
 
 	}
 
+	// increase user count
+
 	game[group].current_cnt ++;
+	if(game[group].current_cnt == 3) {
+
+		ret = TRUE;
+	}
 
 	return ret;
 }
