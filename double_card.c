@@ -132,7 +132,6 @@ static STATUS is_same_queens(char card[], int length) {
 	ASSERT(2 == card);
 	ASSERT(FALSE == is_nomal_card(card, length));
 
-
 	if(card[0] %2 ^ card[1] % 2) {
 
 		return TRUE;
@@ -282,7 +281,7 @@ static STATUS is_three_two(char card[], int length) {
 
 	if(0 == i) {
 
-		is((TRUE == is_double_card(card + 3, 2) || TRUE == is_double_card(card + 3, 2)) &&
+		if((TRUE == is_double_card(card + 3, 2) || TRUE == is_double_card(card + 3, 2)) &&
 			FALSE == is_same_card(card[2], card[3])) {
 
 			return TRUE;
@@ -292,7 +291,7 @@ static STATUS is_three_two(char card[], int length) {
 
 	}else if(2 = = i) {
 
-		is((TRUE == is_double_card(card, 2) || TRUE == is_double_card(card, 2)) &&
+		if((TRUE == is_double_card(card, 2) || TRUE == is_double_card(card, 2)) &&
 			FALSE == is_same_card(card[1], card[2])) {
 
 			return TRUE;
