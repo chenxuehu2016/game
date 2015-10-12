@@ -89,7 +89,7 @@ static STATUS is_normal_card(char card[], int length){
 
 	for(i = 0; i < length; i ++) {
 
-		if(card[i] >= NORMAL_CARD_NOUNDARY)
+		if(card[i] >= NORMAL_CARD_BOUNDARY)
 			return FALSE;
 	}
 
