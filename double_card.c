@@ -72,6 +72,8 @@ typedef struct _Game {
 
 	int current_num;
 
+	int current_bet;
+
 }Game;
 
 static Game game[MAX_GROUP_NUM];
@@ -737,6 +739,13 @@ STATUS process_card(char card[], int length, int finish, int sender, int group) 
 		return TRUE;
 	}
 
+	// sender same as owner
+
+	if(sender == current_owner) {
+
+		return TRUE;
+	}
+
 	resort_card(card, length);
 	_process_card(card, length, group);
 
@@ -746,6 +755,12 @@ STATUS process_card(char card[], int length, int finish, int sender, int group) 
 // function entry
 
 int main(int argc, char* argv[]) {
+
+	// receive event and process event
+
+	while(1) {
+
+	}
 
 	return 0;
 }
