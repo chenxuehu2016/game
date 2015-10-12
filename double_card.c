@@ -133,12 +133,7 @@ static STATUS is_same_queens(char card[], int length) {
 	ASSERT(FALSE == is_nomal_card(card, length));
 
 
-	if(card[0] %2 && card[1] % 2) {
-
-		return TRUE;
-	}
-
-	if(!(card[0] % 2) && !(card[1] % 2)) {
+	if(card[0] %2 ^ card[1] % 2) {
 
 		return TRUE;
 	}
