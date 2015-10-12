@@ -295,7 +295,7 @@ static STATUS is_three_two(char card[], int length) {
 
 		return FALSE;
 
-	}else if(2 = = i0) {
+	}else if(2 = = i) {
 
 		is((TRUE == is_double_card(card, 2) || TRUE == is_double_card(card, 2)) &&
 			FALSE == is_same_card(card[1], card[2])) {
