@@ -72,6 +72,8 @@ typedef struct _Game {
 
 	int current_num;
 
+	int current_data;
+
 	int current_bet;
 
 }Game;
@@ -686,6 +688,7 @@ static int get_big_data(char card[], int length, int type) {
 static STATUS _process_card(char card[], int length, int group) {
 
 	int type;
+	int big;
 
 	// check type first
 
@@ -706,20 +709,41 @@ static STATUS _process_card(char card[], int length, int group) {
 		if(type < BOMB_4) {
 
 			return FALSE;
-		}
 
-		return TRUE;
+		}else if(type == game[group].current_type)  {
 
-	}else {
-	
-		if(type >= BOMB_4) {
+			big = get_big_data(card, length, type);
+			if(big < game[group].current_data) {
 
-			return TRUE;
+					return TRUE;
+			}else {
+
+					return FALSE;
+			}
 
 		}else {
 
-			return FALSE;
+			return TRUE;
 		}
+
+	}else {
+			if(type >= BOMB) {
+
+				return TRUE;
+			}else {
+
+				ASSERT(type == game[group].current_type);
+				ASSERT(length == game[group].crrent_num);
+
+				big = get_big_data(card, length, type);
+				if(big < game[group].current_data) {
+
+					return TRUE;
+				}else {
+
+					return FALSE;
+				}
+			}
 	}
 }
 
