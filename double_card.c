@@ -28,6 +28,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 // type definition
 
@@ -124,8 +125,8 @@ static STATUS is_single_card(char card[], int length) {
 static STATUS is_double_card(char card[], int length) {
 
 	ASSERT(card);
-	ASSERT(2 == card);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(2 == length);
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	return is_same_card(card[0], card[1]);
 }
@@ -133,8 +134,8 @@ static STATUS is_double_card(char card[], int length) {
 static STATUS is_same_queens(char card[], int length) {
 
 	ASSERT(card);
-	ASSERT(2 == card);
-	ASSERT(FALSE == is_nomal_card(card, length));
+	ASSERT(2 == length);
+	ASSERT(FALSE == is_normal_card(card, length));
 
 	if(card[0] %2 ^ card[1] % 2) {
 
@@ -148,7 +149,7 @@ static STATUS is_three_card(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(3 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2])) {
@@ -163,7 +164,7 @@ static STATUS is_bomb4(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(4 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2]) &&
@@ -179,7 +180,7 @@ static STATUS is_bomb5(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(5 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2]) &&
@@ -196,7 +197,7 @@ static STATUS is_bomb6(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(6 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2]) &&
@@ -214,7 +215,7 @@ static STATUS is_bomb7(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(7 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2]) &&
@@ -233,7 +234,7 @@ static STATUS is_bomb8(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(8 == length);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 
 	if(TRUE == is_same_card(card[0], card[1]) &&
 		TRUE == is_same_card(card[1], card[2]) &&
@@ -255,7 +256,7 @@ static STATUS is_sequence(char card[], int length) {
 
 	ASSERT(card);
 	ASSERT(length >= 5);
-	ASSERT(TRUE == is_nomal_card(card, length));
+	ASSERT(TRUE == is_normal_card(card, length));
 	ASSERT(FALSE == is_there_2_card(card, length));
 
 	for(i = 0; i < length - 1; i ++) {
@@ -293,7 +294,7 @@ static STATUS is_three_two(char card[], int length) {
 
 		return FALSE;
 
-	}else if(2 = = i) {
+	}else if(2 == i) {
 
 		if((TRUE == is_double_card(card, 2) || TRUE == is_double_card(card, 2)) &&
 			FALSE == is_same_card(card[1], card[2])) {
@@ -313,8 +314,8 @@ static STATUS is_more_double(char card[], int length){
 
 	ASSERT(card);
 	ASSERT(length >= 6 && 0 == length % 2);
-	ASSERT(TRUE == is_nomal_card(card, length));
-	ASSERT(FALSE == is_there_2_card(card, length))
+	ASSERT(TRUE == is_normal_card(card, length));
+	ASSERT(FALSE == is_there_2_card(card, length));
 
 	// check sequence first
 
@@ -341,8 +342,8 @@ static STATUS is_more_three(char card[], int length){
 
 	ASSERT(card);
 	ASSERT(length >= 6 && 0 == length % 3);
-	ASSERT(TRUE == is_nomal_card(card, length));
-	ASSERT(FALSE == is_there_2_card(card, length))
+	ASSERT(TRUE == is_normal_card(card, length));
+	ASSERT(FALSE == is_there_2_card(card, length));
 
 	// check sequence first
 
@@ -356,7 +357,7 @@ static STATUS is_more_three(char card[], int length){
 
 	for(i = 0; i < length / 3; i ++) {
 
-		if(FALSE == is_three_card(card + 3 * j, 3))
+		if(FALSE == is_three_card(card + 3 * i, 3))
 			return FALSE;
 	}
 
@@ -369,7 +370,7 @@ static STATUS is_more_three_two(char card[], int length) {
 	int start;
 
 	ASSERT(card);
-	ASSERT(length > =10 && 0 == length % 5);
+	ASSERT(length >= 10 && 0 == length % 5);
 
 	// check three card first
 
@@ -422,7 +423,7 @@ static STATUS is_all_queens(char card[], int length){
 	if(card[0] == NORMAL_CARD_BOUNDARY &&
 		card[1] == NORMAL_CARD_BOUNDARY + 1 && 
 		card[2] == NORMAL_CARD_BOUNDARY + 2 &&
-		card[3] == NORMAL_CARD_NOUNDARY + 3) {
+		card[3] == NORMAL_CARD_BOUNDARY + 3) {
 
 		return TRUE;
 	}
@@ -487,7 +488,7 @@ static check_type(char card[], int length) {
 			break;
 
 		case 5:
-			if(TRUE == is_bom5(card, length)) {
+			if(TRUE == is_bomb5(card, length)) {
 
 				return BOMB_5;
 
@@ -506,7 +507,7 @@ static check_type(char card[], int length) {
 			break;
 
 		case 6:
-			if(TRUE == is_bom6(card, length)) {
+			if(TRUE == is_bomb6(card, length)) {
 
 				return BOMB_6;
 
@@ -514,9 +515,9 @@ static check_type(char card[], int length) {
 
 				return SEQUENCE;
 
-			}else if(TRUE == is_more_two(card, length)) {
+			}else if(TRUE == is_more_double(card, length)) {
 
-				return MORE_TWO_CARD;
+				return MORE_DOUBLE_CARD;
 
 			}else if(TRUE == is_more_three(card, length)){
 
@@ -529,7 +530,7 @@ static check_type(char card[], int length) {
 			break;
 
 		case 7:
-			if(TRUE == is_bom7(card, length)) {
+			if(TRUE == is_bomb7(card, length)) {
 
 				return BOMB_7;
 
@@ -544,7 +545,7 @@ static check_type(char card[], int length) {
 			break;
 
 		case 8:
-			if(TRUE == is_bom8(card, length)) {
+			if(TRUE == is_bomb8(card, length)) {
 
 				return BOMB_8;
 
@@ -552,9 +553,9 @@ static check_type(char card[], int length) {
 
 				return SEQUENCE;
 
-			}else if(TRUE == is_more_two(card, length)) {
+			}else if(TRUE == is_more_double(card, length)) {
 
-				return MORE_TWO_CARD;
+				return MORE_DOUBLE_CARD;
 
 			}else {
 				ASSERT(0);
@@ -567,15 +568,15 @@ static check_type(char card[], int length) {
 
 				return SEQUENCE;
 
-			}else if(TRUE == is_more_two(card, length)) {
+			}else if(TRUE == is_more_double(card, length)) {
 
-				return MORE_TWO_CARD;
+				return MORE_DOUBLE_CARD;
 
 			}else if(TRUE == is_more_three(card, length)){
 
 				return MORE_THREE_CARD;
 
-			} else if(TRUE == is_more_thre_two(card, length)){
+			} else if(TRUE == is_more_three_two(card, length)){
 
 				return MORE_THREE_TWO;
 
@@ -586,7 +587,7 @@ static check_type(char card[], int length) {
 			break;
 	}
 
-	return TYPE_ERR;
+	return ERR_TYPE;
 }
 
 // function definition
@@ -661,8 +662,8 @@ static int get_big_data(char card[], int length, int type) {
 
 			break;
 
-		case MORE_DOUBLE:
-		case MORE_THREE:
+		case MORE_DOUBLE_CARD:
+		case MORE_THREE_CARD:
 
 			big = card[length -1] / SINGLE_CARD_NUM;
 
@@ -693,7 +694,7 @@ static STATUS _process_card(char card[], int length, int group) {
 	// check type first
 
 	type = check_type(card, length);
-	if(TYPE_ERR == type) {
+	if(ERR_TYPE == type) {
 
 		return FALSE;
 	}
@@ -727,13 +728,13 @@ static STATUS _process_card(char card[], int length, int group) {
 		}
 
 	}else {
-			if(type >= BOMB) {
+			if(type >= BOMB_4) {
 
 				return TRUE;
 			}else {
 
 				ASSERT(type == game[group].current_type);
-				ASSERT(length == game[group].crrent_num);
+				ASSERT(length == game[group].current_num);
 
 				big = get_big_data(card, length, type);
 				if(big < game[group].current_data) {
@@ -765,7 +766,7 @@ STATUS process_card(char card[], int length, int finish, int sender, int group) 
 
 	// sender same as owner
 
-	if(sender == current_owner) {
+	if(sender == game[group].current_owner) {
 
 		return TRUE;
 	}
