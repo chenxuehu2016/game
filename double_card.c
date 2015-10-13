@@ -63,19 +63,40 @@
 
 // struct definition
 
-typedef struct _Game {
+typedef struct _Game{
 
-	int current_boss;
-
-	int current_owner;
-
-	int current_type;
-
+	// current holding card number
 	int current_num;
 
-	int current_data;
+	// current game state
+	int current_game_state;
 
+	// current card owner
+	int current_owner;
+
+	// current card type
+	int current_type;
+
+	// current landlord
+	int current_boss;
+
+	// record how many people have set bet
+	int current_cnt;
+
+	// current bet value
 	int current_bet;
+
+	// currnet big data for specified type
+	int current_big;
+
+	// current user id
+	int current_user[3];
+
+	// current seed for group
+	int current_seed;
+
+	// current round card information
+	int current_card_info[54];
 
 }Game;
 
@@ -714,7 +735,7 @@ static STATUS _process_card(char card[], int length, int group) {
 		}else if(type == game[group].current_type)  {
 
 			big = get_big_data(card, length, type);
-			if(big < game[group].current_data) {
+			if(big < game[group].current_big) {
 
 					return TRUE;
 			}else {
@@ -737,7 +758,7 @@ static STATUS _process_card(char card[], int length, int group) {
 				ASSERT(length == game[group].current_num);
 
 				big = get_big_data(card, length, type);
-				if(big < game[group].current_data) {
+				if(big < game[group].current_big) {
 
 					return TRUE;
 				}else {
