@@ -96,7 +96,7 @@ typedef struct _Game{
 	int current_seed;
 
 	// current round card information
-	int current_card_info[54];
+	int current_card_info[108];
 
 }Game;
 
