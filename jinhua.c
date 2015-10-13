@@ -128,6 +128,9 @@ static int get_big_data(char card[], int length, int type) {
 				return card[0];
 			}
 
+		default:
+
+			ASSERT(0);
 	}
 }
 
@@ -234,14 +237,33 @@ STATUS is_normal_card(char card[], int length) {
 
 // process card
 
-static void _process_card(char card[], int length, int group) {
+int process_card(char user1, char user2) {
 
-	return;
-}
+	int type1;
+	int type2;
 
-void process_card(char card[], int length, int group, int sender) {
+	switch(type1) {
 
-	_process_card(card, length, group);
+		case BOSS:
+			return 0;
+
+		case SEQ_SAME_COLOR:
+			return 0;
+
+		case SAME_COLOR:
+			return 0;
+
+		case SEQ:
+			return 0;
+
+		case DOUBLE_CARD:
+			return 0;
+
+		case NORMAL_CARD:
+			return 0;
+	}
+
+	return 0;
 }
 
 // function entry
@@ -252,7 +274,11 @@ int main(int argc, char* argv[]) {
 
 	while(1) {
 
-		// process event
+		// process bet
+
+		// process card
+
+		// drop card
 	}
 
 	return 0;
