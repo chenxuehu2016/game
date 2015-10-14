@@ -30,21 +30,6 @@
 #include <string.h>
 #include <memory.h>
 
-// define struct card
-
-typedef struct _LinkNode {
-
-	struct _LinkNode* prev;
-	struct _LinkNode* next;
-
-}LinkNode;
-
-typedef struct _CARD{
-	
-	LinkNode node;
-	int num;
-}CARD;
-
 // check card type
 
 #define SINGLE_CARD    0x1
