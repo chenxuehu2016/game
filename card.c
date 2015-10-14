@@ -177,7 +177,7 @@ STATUS select_boss(int bet, int sender, int group) {
 
 		case 1:
 		case 2:
-			if(bet > game[group].current_boss) {
+			if(bet > game[group].current_bet) {
 
 				game[group].current_boss = sender;
 				game[group].current_bet = bet;
