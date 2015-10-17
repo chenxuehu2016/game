@@ -1058,6 +1058,31 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	return;
 }
 
+void process_event(int event, int sender, int group) {
+
+	if(0xffffffff == group) {
+
+		return;
+	}
+
+	switch (game[group].current_game_state) {
+
+		case INIT_STATE:
+			break;
+
+		case SELECT_STATE:
+			break;
+
+		case GAME_STATE:
+			break;
+
+		case RUN_STATE:
+			break;
+
+		default:
+			break;
+		}
+}
 
 #ifndef UNIT_TEST
 // entry of all function
